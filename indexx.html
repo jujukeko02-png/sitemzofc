@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mz Conteúdos</title>
+    <!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.5.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.5.2/firebase-auth-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAr6sJhI7c90FnbGU1BVT7guZcBf8mk2XU",
+    authDomain: "alianceztx-c33d3.firebaseapp.com",
+    projectId: "alianceztx-c33d3",
+    storageBucket: "alianceztx-c33d3.firebasestorage.app",
+    messagingSenderId: "488999147814",
+    appId: "1:488999147814:web:a75f4234d12bc1cd3409e7",
+    measurementId: "G-KF7RTNZYEF"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  // Verifica se o usuário está logado
+  auth.onAuthStateChanged((user) => {
+    if (!user) {
+      // Se não estiver logado, manda pra tela de login
+      window.location.href = "index.html"; 
+    }
+  });
+</script>
+    <meta name="description" content="Bem Vindos ao site oficial do Mz">
+    <meta name="keywords" content="Aqui teremos postagens e informações sobre todos os nossos serviços e atualizações">
+    <link rel="icon" href="logo.webp">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="boxicons@2.1.4/css/boxicons.min.css"
+    <script
+         src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+         data-utmify-prevent-xcod-sck
+         data-utmify-prevent-subids
+         async
+         defer
+    ></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'space-bg': '#000614',
+                        'space-primary': '#a855f7'
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulse-glow 2s ease-in-out infinite alternate',
+                        'slide-up': 'slide-up 0.8s ease-out',
+                        'scale-in': 'scale-in 0.6s ease-out'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('wght@300;400;500;600;700;800;900&display=swap">https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+            box-sizing: border-box;
+        }
+        body {
+            background: #000614;
+            overflow-x: hidden;
+        }
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.9), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.7), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(2px 2px at 160px 30px, rgba(255,255,255,0.9), transparent),
+                radial-gradient(1px 1px at 300px 50px, rgba(255,255,255,0.7), transparent),
+                radial-gradient(2px 2px at 350px 100px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 450px 20px, rgba(255,255,255,0.9), transparent);
+            background-repeat: repeat;
+            background-size: 600px 300px;
+            animation: move-stars 100s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .twinkling {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(1px 1px at 30px 40px, rgba(99, 102, 241, 0.4), transparent),
+                radial-gradient(1px 1px at 80px 10px, rgba(139, 92, 246, 0.3), transparent),
+                radial-gradient(1px 1px at 150px 80px, rgba(168, 85, 247, 0.4), transparent),
+                radial-gradient(1px 1px at 250px 30px, rgba(99, 102, 241, 0.3), transparent);
+            background-repeat: repeat;
+            background-size: 500px 200px;
+            animation: move-twinkling 150s linear infinite, pulse-stars 6s ease-in-out infinite alternate;
+            pointer-events: none;
+            z-index: 2;
+        }
+        @keyframes pulse-stars {
+            0% { opacity: 0.2; }
+            100% { opacity: 0.6; }
+        }
+        @keyframes move-stars {
+            from { transform: translateY(0px) translateX(0px); }
+            to { transform: translateY(-120px) translateX(-120px); }
+        }
+        @keyframes move-twinkling {
+            from { transform: translateY(0px) translateX(0px); }
+            to { transform: translateY(-250px) translateX(-250px); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        @keyframes pulse-glow {
+            from {
+                box-shadow: 
+                    0 0 20px rgba(168, 85, 247, 0.3),
+                    0 0 40px rgba(168, 85, 247, 0.1);
+            }
+            to {
+                box-shadow: 
+                    0 0 30px rgba(168, 85, 247, 0.5),
+                    0 0 60px rgba(168, 85, 247, 0.2);
+            }
+        }
+        @keyframes slide-up {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes scale-in {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .glass-card {
+            backdrop-filter: blur(24px);
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(71, 85, 105, 0.3);
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.9),
+                0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.5), transparent);
+        }
+        .glow-effect {
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            box-shadow: 
+                0 0 20px rgba(168, 85, 247, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        .title-glow {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 50%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            box-shadow: 
+                0 4px 20px rgba(139, 92, 246, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #c084fc 100%);
+            box-shadow: 
+                0 8px 30px rgba(139, 92, 246, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px) scale(1.02);
+        }
+        .btn-secondary {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(71, 85, 105, 0.4);
+            backdrop-filter: blur(16px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-secondary:hover {
+            background: rgba(30, 41, 59, 0.9);
+            border-color: rgba(168, 85, 247, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.1);
+        }
+        .module-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(71, 85, 105, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.3), transparent);
+        }
+        .module-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 
+                0 15px 30px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(168, 85, 247, 0.1);
+            background: rgba(15, 23, 42, 0.8);
+        }
+        .feature-icon {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .feature-icon:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+        .navbar {
+            backdrop-filter: blur(20px);
+            background: rgba(15, 23, 42, 0.9);
+            border-bottom: 1px solid rgba(71, 85, 105, 0.3);
+        }
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(168, 85, 247, 0.2);
+            z-index: 1000;
+        }
+        .scroll-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6, #a855f7);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .hero-gradient {
+            background: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.1) 0%, rgba(0, 6, 20, 0.8) 70%);
+        }
+        .cta-pulse {
+            animation: pulse-glow 2s ease-in-out infinite alternate;
+        }
+        .stats-counter {
+            color: #a855f7;
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(24px);
+            border-left: 1px solid rgba(71, 85, 105, 0.3);
+            transition: right 0.3s ease;
+            z-index: 1001;
+            padding: 2rem;
+        }
+        .mobile-menu.open {
+            right: 0;
+        }
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .mobile-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .section-padding {
+            padding: 5rem 0;
+        }
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 3rem 0;
+            }
+            .stats-counter {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+</head>
+
+<body class="bg-white dark:bg-space-bg text-black dark:text-black dark:text-white">
+
+<!-- Botão do menu lateral (embaixo, no canto direito) -->
+<!-- Botão hamburger -->
+<button onclick="toggleSidebar()" class="fixed bottom-6 right-6 z-50 flex flex-col justify-between w-10 h-8 p-1 bg-transparent rounded-lg focus:outline-none">
+  <span class="block w-full h-1 bg-space-primary rounded-full transition-all duration-300"></span>
+  <span class="block w-full h-1 bg-space-primary rounded-full transition-all duration-300"></span>
+  <span class="block w-full h-1 bg-space-primary rounded-full transition-all duration-300"></span>
+</button>
+
+  <!-- Rodapé -->
+
+
+<!-- Script -->
+
+
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    
+    <div class="scroll-indicator">
+        <div class="scroll-progress" id="scrollProgress"></div>
+    </div>
+    <div class="mobile-overlay" id="mobileOverlay" onclick="toggleMenu()"></div>
+    <nav class="navbar fixed top-0 w-full z-50 transition-all duration-300 bg-white dark:bg-slate-900">
+    
+    <!-- Botão modo claro/escuro -->
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="glow-effect rounded-lg p-2">
+                        <i class="bx bx-rocket text-lg text-space-primary"></i>
+                    </div>
+                    <div>
+                        <h1 class="title-glow text-lg font-bold">Mz Conteúdos</h1>
+                        <p class="text-slate-400 text-xs"> </p>
+                    </div>
+                </div>
+                
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="flex justify-between items-center mb-8">
+            <div class="flex items-center space-x-2">
+                <div class="glow-effect rounded-lg p-2">
+                    <i class="bx bx-rocket text-lg text-space-primary"></i>
+                </div>
+                <div>
+                    <h1 class="title-glow text-lg font-bold">SPACE BUSCAS</h1>
+                </div>
+            </div>
+            <button onclick="toggleMenu()" class="text-slate-300">
+                <i class="bx bx-x text-2xl"></i>
+            </button>
+        </div>
+        <div class="space-y-6">
+            <a href="#modulos" onclick="toggleMenu()" class="block text-slate-300 hover:text-space-primary transition-colors py-3 font-medium">Módulos</a>
+            <a href="#beneficios" onclick="toggleMenu()" class="block text-slate-300 hover:text-space-primary transition-colors py-3 font-medium">Vantagens</a>
+            <a href="#planos" onclick="toggleMenu()" class="block text-slate-300 hover:text-space-primary transition-colors py-3 font-medium">Planos</a>
+            <a href="acesso.php" class="btn-primary block text-center px-4 py-3 rounded-lg text-black dark:text-white font-bold mt-6">
+                <i class="bx bx-diamond mr-2"></i>Começar Agora
+            </a>
+        </div>
+    </div>
+    <section class="relative min-h-screen flex items-center justify-center hero-gradient">
+        <div class="container mx-auto px-4 text-center relative z-10 py-20">
+            <div class="max-w-5xl mx-auto">
+                
+                <div class="mb-8">
+
+                </div>
+                
+                <h1 class="title-glow text-4xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight">
+            Mz Conteúdos 
+     <p>Sua nova opção em ideias, serviços e tecnologia<span class="text-space-primary"></span>
+                </h1>
+               <br>
+                <p class="text-xl md:text-2xl text-slate-300 mb-4 font-light max-w-4xl mx-auto">
+                    <strong class="text-space-primary">Aqui postaremos informações sobre nossos serviços, atualizações e promoções, então fiquem ligados</strong>
+                </p>
+               <br>
+                <p class="text-lg text-slate-400 mb-10 max-w-3xl mx-auto">
+                   Nosso site já capturou mais de 150 acessos em menos de 1 dia, provando assim que somos proativos e valorizamos a satisfação de nossos clientes.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+                    <a href="#planos" class="btn-primary cta-pulse px-8 py-4 rounded-xl text-black dark:text-white font-bold text-lg inline-flex items-center">
+                        <i class="bx bx-diamond mr-2"></i>
+         Serviços disponíveis
+                    </a>
+                    <a href="https://whatsapp.com/channel/0029VbBJyXL9WtCCQ9fZNd1J" class="btn-secondary px-8 py-4 rounded-xl text-black dark:text-white font-semibold text-lg inline-flex items-center">
+                        <i class="bx bx-search-alt mr-2"></i>
+         Seguir Canal     
+                    </a>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                    <div class="text-center">
+                        <div class="stats-counter mb-2">+4 Bots</div>
+                        <div class="text-slate-400 text-base font-medium">Bots criados oficialmente por Mz , 1 do telegram e outros 3 do Whatsapp incluindo o Takira</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="stats-counter mb-2">+7 Serviços</div>
+                        <div class="text-slate-400 text-base font-medium">Atualmente atuando na web com mais de 7 serviços diferentes</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="stats-counter mb-2">Espaço de Amizades</div>
+                        <div class="text-slate-400 text-base font-medium">Faça parte do nosso amplo espaço de parcerias, amizades e projetos</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="stats-counter mb-2">Aulas</div>
+                        <div class="text-slate-400 text-base font-medium">Aprenda a criar seu bot de WhatsApp/Telegram num piscar de olhos</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-padding relative z-10 bg-gradient-to-b from-transparent to-slate-900/20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+
+                <h2 class="text-4xl md:text-5xl font-bold title-glow mb-6">Por que escolher a 
+                <hr>
+        MZ Conteúdos?</h2>
+                <p class="text-xl text-slate-400 max-w-3xl mx-auto mb-8">
+                    Uma empresa privada com mais de 7 serviços, uma equipe especializada para qualquer área e principalmente por que valorizamos a satisfação dos clientes
+                </p>
+                <a href="sobre.html" class="btn-primary px-8 py-4 rounded-xl text-black dark:text-white font-bold text-lg inline-flex items-center">
+                    <i class="bx bx-rocket mr-2"></i>
+      Como tudo começou
+                </a>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+                <div class="space-y-8">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-16 h-16 bg-space-primary/20 rounded-xl flex items-center justify-center flex-shrink-0 feature-icon">
+                            <i class="bx bx-rocket text-2xl text-space-primary"></i> 
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-black dark:text-white mb-3">Serviços Garantidos e Pagamento Confiável</h3>
+                            <p class="text-slate-400 leading-relaxed">
+                                A Mz Conteúdos procura conhecer melhor o cliente e criar conexões que faz o processo do atendimento ser único e espetacular. Sem contar que o pagamento é feito na maior segurança possível e de acordo com provas nós oferecemos reembolso.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="w-16 h-16 bg-green-500/20 rounded-xl flex items-center justify-center flex-shrink-0 feature-icon">
+                            <i class="bx bx-shield-check text-2xl text-green-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-black dark:text-white mb-3">Suporte Ágil, Prestativo e 22 horas online</h3>
+                            <p class="text-slate-400 leading-relaxed">
+              O suporte oficial da Mz Conteúdos é por meio de pessoas reais, fazendo com que cada pergunta do cliente seja respondida de forma rápida e esclarecida. Futuras atualizações trarão o nosso bot de Atendimento oficial via WhatsApp.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="w-16 h-16 bg-blue-500/20 rounded-xl flex items-center justify-center flex-shrink-0 feature-icon">
+                            <i class="bx bx-diamond text-2xl text-blue-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-black dark:text-white mb-3">Diversão e Conhecimento Garantido</h3>
+                            <p class="text-slate-400 leading-relaxed">
+              Temos um canal no Whatsapp no qual postamos todos os dias , coisas que podem lhe alertar, ajudar e ensinar diariamente. Sem contar nos diversos brindes e brincadeiras que buscamos pra vocês.
+                            </p>
+                        </div>
+                    </div>
+                     </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+                <div class="space-y-8">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-16 h-16 bg-space-primary/20 rounded-xl flex items-center justify-center flex-shrink-0 feature-icon">
+                            <i class="bx bx-rocket text-2xl text-space-primary"></i> 
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-black dark:text-white mb-3">Valorizamos a Arte e Cultura</h3>
+                            <p class="text-slate-400 leading-relaxed">
+                                Ao contrário de outras empresas com ramo de programação, a Mz Conteúdos, ajuda vendedores nas divulgações de suas obras, como livros , pinturas, banners e muito mais.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="glass-card rounded-2xl p-8 relative overflow-hidden bg-slate-100 dark:bg-[rgba(15,23,42,0.85)]">
+                        <div class="text-center mb-8">
+                          <div class="w-28 h-28 mx-auto rounded-full overflow-hidden">
+  <img src="https://files.catbox.moe/ezaz6w.jpg" alt="Logo" class="w-full h-full object-cover">
+</div>
+                            <h1 class="text-3xl font-bold text-black dark:text-white mb-4">Botcrafters</h1>
+                            <p class="text-slate-400 text-lg">
+                   Se está procurando um local onde as pessoas não vão te julgar por não saber escrever ou escrever código, onde você pode ser quem quiser (claro mantendo respeito). Apresento a vocês o "Botcrafters", grupo do whatsapp, voltado a Devs e Escritores iniciantes que procuram aprender mais , ensinar e/ou aperfeiçoar o que já sabem.
+                            </p>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-space-primary mb-2">Amizades <hr> Parcerias</div>
+                                <div class="text-slate-400 text-base">Aqui você pode tanto fazer amigos , zoar, criar contatos e parcerias com outros Devs e Empresas</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-space-primary mb-2">Postagens <hr> Conteúdos</div>
+                                <div class="text-slate-400 text-base">Todos os dias há Devs e Novos usuários postando arquivos, métodos, brindes e novidades, vai perder essa chance?</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-space-primary mb-2">Divulgação<hr>Serviços</div>
+                                <div class="text-slate-400 text-sm">Você pode sim divulgar seus serviços de forma clara e comportada, desde que respeite as regras e os membros</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-space-primary mb-2">Vigilância <hr> Diversão</div>
+                                <div class="text-slate-400 text-sm">Temos Bots Adms online 24 horas , ou seja o grupo é vigiado para manter as regras e o bem estar de cada participante, sem falar que eles possuem sistema de zoação, brincadeiras e jogos</div>
+                            </div>
+                        </div>
+                        <div class="mt-8 text-center">
+                            <a href="https://chat.whatsapp.com/HYSL4WEbHPxLDWhTh4gmCq" class="btn-primary px-6 py-3 rounded-lg text-black dark:text-white font-bold">
+                                <i class="bx bx-play mr-2"></i>Entre Agora
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="modulos" class="section-padding relative z-10">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+            <!-- Imagem fixa -->
+<div class="mb-10">
+  <img src="https://files.catbox.moe/36jydp.jpg" alt="Imagem" class="w-full h-64 object-cover rounded-lg">
+</div>
+                <h2 class="text-4xl md:text-5xl font-bold title-glow mb-6">Novas Atualizações toda semana</h2>
+                <p class="text-xl text-slate-400 max-w-4xl mx-auto mb-8">
+      Fique por dentro de tudo que acontece de Novidades, tanto na Mz Conteúdos quanto no mundo Dev
+                </p>
+                <a href="novidades.html" class="btn-primary px-8 py-4 rounded-xl text-black dark:text-white font-bold text-lg inline-flex items-center">
+                    <i class="bx bx-diamond mr-2"></i>
+       Novidades
+                </a>
+            </div>
+            <div class="mb-12">
+                <h3 class="text-2xl md:text-3xl font-bold text-space-primary mb-8 flex items-center justify-center">
+                    <i class="bx bx-id-card mr-3 text-3xl"></i>
+                    
+                </h3>
+
+<div class="mb-12">
+    <h3 class="text-2xl md:text-3xl font-bold text-space-primary mb-8 flex items-center justify-center">
+        <i class="bx bx-phone mr-3 text-3xl"></i>
+        Conheça a Equipe Mz Conteúdos 
+    </h3>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="module-card rounded-xl p-6 text-center bg-slate-100 dark:bg-[rgba(15,23,42,0.6)]">
+            <a href="pagina-telefone.html">
+                <img src="https://files.catbox.moe/w5twlt.jpg" alt="Telefone" class="w-full h-32 object-cover rounded-lg mb-4">
+                <h4 class="text-lg font-bold text-black dark:text-white mb-2">DarkK&Mz</h4>
+                <p class="text-slate-400 text-sm">Dev, CEO, Caçador de Conteúdos, Financeiro e Suporte</p>
+            </a>
+        </div>
+        
+        <div class="module-card rounded-xl p-6 text-center bg-slate-100 dark:bg-[rgba(15,23,42,0.6)]">
+      
+            
+              <img src="https://files.catbox.moe/w5twlt.jpg" alt="Telefone" class="w-full h-32 object-cover rounded-lg mb-4">
+            <h4 class="text-lg font-bold text-black dark:text-white mb-2">DarkK</h4>
+            
+            
+            <p class="text-slate-400 text-sm">xxxxx</p>
+            </a>
+        </div>
+        
+        <div class="module-card rounded-xl p-6 text-center bg-slate-100 dark:bg-[rgba(15,23,42,0.6)]">
+
+            
+             <img src="https://files.catbox.moe/w5twlt.jpg" alt="Telefone" class="w-full h-32 object-cover rounded-lg mb-4">
+            <h4 class="text-lg font-bold text-black dark:text-white mb-2">user</h4>
+            <p class="text-slate-400 text-sm">xxxxx</p>
+        </div>
+        
+        <div class="module-card rounded-xl p-6 text-center bg-slate-100 dark:bg-[rgba(15,23,42,0.6)]">
+
+            
+             <img src="https://files.catbox.moe/w5twlt.jpg" alt="Telefone" class="w-full h-32 object-cover rounded-lg mb-4">
+            <h4 class="text-lg font-bold text-black dark:text-white mb-2">User</h4>
+            <p class="text-slate-400 text-sm">xxxxx</p>
+        </div>
+    </div>
+</div>
+                   
+                </h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="module-card rounded-xl p-6 text-center bg-slate-100 dark:bg-[rgba(15,23,42,0.6)]">
+           <img src="https://files.catbox.moe/w5twlt.jpg" alt="Telefone" class="w-full h-32 object-cover rounded-lg mb-4">
+                        <h4 class="text-lg font-bold text-black dark:text-white mb-2">User</h4>
+                        <p class="text-slate-400 text-sm">xxxxx</p>
+                    </div>
+                    
+                    <div class="module-card rounded-xl p-6 text-center bg-slate-100 dark:bg-[rgba(15,23,42,0.6)]">
+ <img src="https://files.catbox.moe/w5twlt.jpg" alt="Telefone" class="w-full h-32 object-cover rounded-lg mb-4">
+                        <h4 class="text-lg font-bold text-black dark:text-white mb-2">User</h4>
+                        <p class="text-slate-400 text-sm">xxxxx</p>
+                    </div>
+                    
+                    
+          
+                </div>
+            </div>
+            <div class="text-center">
+                <div class="inline-flex items-center justify-center px-4 py-2 bg-space-primary/10 border border-space-primary/30 rounded-full mb-6">
+                    <i class="bx bx-plus text-space-primary mr-2"></i>
+                    <span class="text-space-primary text-sm font-semibold">E mais 7 módulos especializados</span>
+                </div>
+                <h3 class="text-2xl font-bold text-black dark:text-white mb-4">Módulos Extras Inclusos</h3>
+                <p class="text-slate-400 mb-8 max-w-2xl mx-auto">
+                    PIS, Foto, Mãe, Radar e outros módulos especializados para  específicas
+                </p>
+                <a href="acesso.php" class="btn-primary px-8 py-4 rounded-xl text-black dark:text-white font-bold text-lg inline-flex items-center">
+                    <i class="bx bx-rocket mr-2"></i>
+                    Acessar Todos Agora
+                </a>
+            </div>
+        </div>
+    </section>
+    <section id="planos" class="section-padding relative z-10 bg-gradient-to-b from-slate-900/20 to-transparent">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center justify-center px-4 py-2 bg-green-500/10 border border-green-500/30 rounded-full mb-6">
+                    <i class="bx bx-check-circle text-green-400 mr-2"></i>
+                    <span class="text-green-300 text-sm font-semibold">Acesso Imediato - Pagamento via PIX</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold title-glow mb-6">Escolha Seu Plano</h2>
+                <p class="text-xl text-slate-400 max-w-3xl mx-auto">
+                    Todos os planos incluem acesso completo aos 19 módulos. Escolha o que melhor se adapta às suas necessidades.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
+                
+                <div class="glass-card rounded-2xl p-8 relative">
+                    <div class="text-center mb-8">
+                        <div class="w-16 h-16 bg-blue-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                            <i class="bx bx-rocket text-3xl text-blue-400"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-black dark:text-white mb-2">Hobby</h3>
+                        <p class="text-slate-400">Para uso esporádico</p>
+                    </div>
+                    
+                    <div class="text-center mb-8">
+                        <div class="text-4xl font-bold text-blue-400 mb-2">R$ 45</div>
+                        <div class="text-slate-400">7 dias de acesso</div>
+                        <div class="text-green-400 text-sm mt-1">≈ R$ 6,43 por dia</div>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center text-slate-300">
+                            <i class="bx bx-check text-green-400 mr-3 text-lg"></i>
+                            Todos os 19 módulos
+                        </li>
+                        <li class="flex items-center text-slate-300">
+                            <i class="bx bx-check text-green-400 mr-3 text-lg"></i>
+                            7 dias de acesso total
+                        </li>
+                        <li class="flex items-center text-slate-300">
+                            <i class="bx bx-check text-green-400 mr-3 text-lg"></i>
+                            Suporte 24/7
+                        </li>
+                        <li class="flex items-center text-slate-300">
+                            <i class="bx bx-check text-green-400 mr-3 text-lg"></i>
+                            Ativação imediata
+                        </li>
+                    </ul>
+                    
+                    <a href="acesso.php" class="btn-primary w-full py-4 rounded-xl text-black dark:text-white font-bold text-lg inline-flex items-center justify-center">
+                        <i class="bx bx-credit-card mr-2"></i>
+                        Começar com Hobby
+                    </a>
+                </div>
+                
+                <div class="glass-card rounded-2xl p-8 relative border-space-primary/50 scale-105">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <div class="bg-space-primary px-6 py-2 rounded-full text-black dark:text-white font-bold text-sm">
+                            <i class="bx bx-star mr-1"></i>MAIS POPULAR
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mb-8">
+                        <div class="w-16 h-16 bg-space-primary/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                            <i class="bx bx-diamond text-3xl text-space-primary"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-black dark:text-white mb-2">Galaxy</h3>
+                        <p class="text-slate-400">Melhor custo-benefício</p>
+                    </div>
+                    
+                    <div class="text-center mb-8">
+                        <div class="text-4xl font-bold text-space-primary mb-2">R$ 70</div>
+                        <div class="text-slate-400">15 dias de acesso</div>
+                        <div class="text-green-400 text-sm mt-1">≈ R$ 4,67 por dia</div>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center text-slate-300">
+                            <i class="bx bx-check text-green-400 mr-3 text-lg"></i>
+                            Todos os 19 módulos
+                        </li>
+                        <li class="flex items-center text-slate-300">
+                            <i class="bx bx-check text-green-400 mr-3 text-lg"></i>
+                            15 dias de acesso total
+                        </li>
+                        <li class="flex items-center text-slate-300">
+                            <i class="bx bx-check text-green-400 mr-3 text-lg"></i>
+                            Suporte prioritário
+                        </li>
+                        <li class="flex items-center text-slate-300">
+                            <i class="bx bx-star text-yellow-400 mr-3 text-lg"></i>
+                            Código de referência
+                        </li>
+                        <li class="flex items-center text-slate-300">
+                            <i class="bx bx-gift text-purple-400 mr-3 text-lg"></i>
+                            Ganhe dias extras
+                        </li>
+                    </ul>
+                    
+                    <a href="acesso.php" class="btn-primary w-full py-4 rounded-xl text-black dark:text-white font-bold text-lg inline-flex items-center justify-center cta-pulse">
+                        <i class="bx bx-diamond mr-2"></i>
+                        Escolher Galaxy
+                    </a>
+                </div>
+                
+                <div class="glass-card rounded-2xl p-8 relative">
+                    <div class="text-center mb-8">
+                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                            <i class="bx bx-crown text-3xl text-purple-400"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-black dark:text-white mb-2">Universe</h3>
+                        <p class="text-slate-400">Para profissionais</p>
+                    </div>
+                    
+                    <div class="text-center mb-8">
+                        <div class="text-4xl font-bold text-purple-400 mb-2">R$ 100</div>
+                        <div class="text-slate-400">30 dias de acesso</div>
+                        <div class="text-green-400 text-sm mt-1">≈ R$ 3,33 por dia</div>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center text-slate-300">
+                            <i class="bx bx-check text-green-400 mr-3 text-lg"></i>
+                            Todos os 19 módulos
+                        </li>
+                        <li class="flex items-center text-slate-300">
+                            <i class="bx bx-check text-green-400 mr-3 text-lg"></i>
+                            30 dias de acesso total
+                        </li>
+                        <li class="flex items-center text-slate-300">
+                            <i class="bx bx-check text-green-400 mr-3 text-lg"></i>
+                            Suporte VIP exclusivo
+                        </li>
+                        <li class="flex items-center text-slate-300">
+                            <i class="bx bx-star text-yellow-400 mr-3 text-lg"></i>
+                            Código de referência
+                        </li>
+                        <li class="flex items-center text-slate-300">
+                            <i class="bx bx-crown text-purple-400 mr-3 text-lg"></i>
+                            Acesso antecipado
+                        </li>
+                    </ul>
+                    
+                    <a href="acesso.php" class="btn-primary w-full py-4 rounded-xl text-black dark:text-white font-bold text-lg inline-flex items-center justify-center">
+                        <i class="bx bx-crown mr-2"></i>
+                        Escolher Universe
+                    </a>
+                </div>
+            </div>
+            
+            <div class="glass-card rounded-xl p-8 max-w-4xl mx-auto mb-12 relative">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div>
+                        <i class="bx bx-shield-check text-4xl text-green-400 mb-4"></i>
+                        <h4 class="text-xl font-bold text-black dark:text-white mb-3">100% Seguro</h4>
+                        <p class="text-slate-400">Pagamento via PIX protegido e dados criptografados</p>
+                    </div>
+                    <div>
+                        <i class="bx bx-time text-4xl text-blue-400 mb-4"></i>
+                        <h4 class="text-xl font-bold text-black dark:text-white mb-3">Ativação Imediata</h4>
+                        <p class="text-slate-400">Acesso liberado automaticamente após confirmação</p>
+                    </div>
+                    <div>
+                        <i class="bx bx-support text-4xl text-purple-400 mb-4"></i>
+                        <h4 class="text-xl font-bold text-black dark:text-white mb-3">Suporte 24/7</h4>
+                        <p class="text-slate-400">Equipe especializada sempre disponível</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <a href="acesso.php" class="btn-primary px-10 py-5 rounded-xl text-black dark:text-white font-bold text-xl inline-flex items-center cta-pulse">
+                    <i class="bx bx-rocket mr-3"></i>
+                    Começar Agora - Acesso Imediato
+                </a>
+                <p class="text-slate-400 mt-4">Ativação automática via PIX • Sem mensalidade • Sem fidelidade</p>
+            </div>
+        </div>
+    </section>
+    <section id="beneficios" class="section-padding relative z-10">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold title-glow mb-6">Sistema de Referência</h2>
+                <p class="text-xl text-slate-400 max-w-3xl mx-auto mb-8">
+                    Ganhe <strong class="text-yellow-400">2 dias extras</strong> no seu plano para cada pessoa que se cadastrar usando seu código
+                </p>
+                <a href="acesso.php" class="btn-primary px-8 py-4 rounded-xl text-black dark:text-white font-bold text-lg inline-flex items-center">
+                    <i class="bx bx-gift mr-2"></i>
+                    Ganhar Código de Referência
+                </a>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-16 h-16 bg-yellow-500/20 rounded-xl flex items-center justify-center flex-shrink-0 feature-icon">
+                            <i class="bx bx-gift text-2xl text-yellow-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-black dark:text-white mb-3">Código Único Personalizado</h3>
+                            <p class="text-slate-400 leading-relaxed">
+                                Receba um código exclusivo de 8 caracteres para compartilhar com seus contatos e ganhar tempo extra.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="w-16 h-16 bg-green-500/20 rounded-xl flex items-center justify-center flex-shrink-0 feature-icon">
+                            <i class="bx bx-time text-2xl text-green-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-black dark:text-white mb-3">2 Dias Extras por Indicação</h3>
+                            <p class="text-slate-400 leading-relaxed">
+                                Cada pessoa que se cadastrar usando seu código adiciona automaticamente 2 dias ao seu plano atual.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="w-16 h-16 bg-purple-500/20 rounded-xl flex items-center justify-center flex-shrink-0 feature-icon">
+                            <i class="bx bx-infinite text-2xl text-purple-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-black dark:text-white mb-3">Sem Limite de Indicações</h3>
+                            <p class="text-slate-400 leading-relaxed">
+                                Indique quantas pessoas quiser. Quanto mais indicações, mais dias extras você ganha!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="glass-card rounded-2xl p-8 relative overflow-hidden bg-slate-100 dark:bg-[rgba(15,23,42,0.85)]">
+                        <div class="text-center mb-8">
+                            <h3 class="text-2xl font-bold text-black dark:text-white mb-6">Potencial de Ganhos</h3>
+                            <p class="text-slate-400">Veja como suas indicações se transformam em tempo extra</p>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center p-4 bg-slate-800/30 rounded-xl">
+                                <span class="text-slate-300 font-medium">5 indicações</span>
+                                <span class="text-green-400 font-bold text-lg">+10 dias</span>
+                            </div>
+                            <div class="flex justify-between items-center p-4 bg-slate-800/30 rounded-xl">
+                                <span class="text-slate-300 font-medium">10 indicações</span>
+                                <span class="text-green-400 font-bold text-lg">+20 dias</span>
+                            </div>
+                            <div class="flex justify-between items-center p-4 bg-slate-800/30 rounded-xl">
+                                <span class="text-slate-300 font-medium">25 indicações</span>
+                                <span class="text-green-400 font-bold text-lg">+50 dias</span>
+                            </div>
+                            <div class="flex justify-between items-center p-4 bg-gradient-to-r from-purple-500/20 to-space-primary/20 rounded-xl border border-space-primary/30">
+                                <span class="text-black dark:text-white font-bold">50 indicações</span>
+                                <span class="text-yellow-400 font-bold text-xl">+100 dias</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-xl">
+                            <p class="text-yellow-300 text-center font-medium">
+                                <i class="bx bx-bulb mr-2"></i>
+                                Compartilhe em grupos e redes sociais para maximizar seus ganhos!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-padding relative z-10 bg-gradient-to-b from-transparent to-slate-900/30">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold title-glow mb-6">O que Nossos Clientes Dizem</h2>
+                <p class="text-xl text-slate-400 max-w-3xl mx-auto">Veja os depoimentos de quem já usa e confia no SPACE BUSCAS.</p>
+            </div>
+            <div id="testimonialsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto"></div>
+        </div>
+    </section>
+    <section class="section-padding relative z-10 bg-gradient-to-b from-transparent to-slate-900/30">
+        <div class="container mx-auto px-4">
+            <div class="glass-card rounded-2xl p-12 text-center relative overflow-hidden">
+                <div class="relative z-10">
+                    <div class="w-24 h-24 bg-space-primary/20 rounded-full flex items-center justify-center mx-auto mb-8">
+                        <i class="bx bx-rocket text-5xl text-space-primary"></i>
+                    </div>
+                    
+                    <h2 class="text-3xl md:text-5xl font-bold title-glow mb-6">
+                        Pronto para Começar?
+                    </h2>
+                    
+                    <p class="text-xl md:text-2xl text-slate-300 mb-4 max-w-3xl mx-auto">
+                        Junte-se aos <strong class="text-space-primary">profissionais que confiam</strong> no SPACE BUSCAS
+                    </p>
+                    
+                    <p class="text-lg text-slate-400 mb-10 max-w-2xl mx-auto">
+                        19 módulos de consulta, ativação imediata via PIX e suporte 24/7. Tudo que você precisa em uma única plataforma.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-10">
+                        <a href="acesso.php" class="btn-primary cta-pulse px-10 py-5 rounded-xl text-black dark:text-white font-bold text-xl inline-flex items-center">
+                            <i class="bx bx-diamond mr-3"></i>
+                            Começar Agora - R$ 20,00
+                        </a>
+                        <a href="https://t.me/SpaceBuscasSupport" target="_blank" class="btn-secondary px-8 py-5 rounded-xl text-black dark:text-white font-semibold text-lg inline-flex items-center">
+                            <i class="bx bx-support mr-2"></i>
+                            Falar com Suporte
+                        </a>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
+                        <div class="text-center">
+                            <i class="bx bx-time text-3xl text-green-400 mb-3"></i>
+                            <h4 class="text-lg font-bold text-black dark:text-white mb-2">Ativação Imediata</h4>
+                            <p class="text-slate-400 text-sm">Acesso liberado em segundos após pagamento</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="bx bx-shield-check text-3xl text-blue-400 mb-3"></i>
+                            <h4 class="text-lg font-bold text-black dark:text-white mb-2">100% Seguro</h4>
+                            <p class="text-slate-400 text-sm">Pagamento protegido via PIX</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="bx bx-support text-3xl text-purple-400 mb-3"></i>
+                            <h4 class="text-lg font-bold text-black dark:text-white mb-2">Suporte 24/7</h4>
+                            <p class="text-slate-400 text-sm">Sempre aqui para ajudar você</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="absolute inset-0 bg-gradient-to-br from-space-primary/5 to-purple-600/5"></div>
+            </div>
+        </div>
+    </section>
+    <footer class="relative z-10 py-12 border-t border-slate-800">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="glow-effect rounded-lg p-2">
+                            <i class="bx bx-rocket text-lg text-space-primary"></i>
+                        </div>
+                        <div>
+                            <h3 class="title-glow text-xl font-bold">Mz Conteúdos CHANNEL</h3>
+                            <p class="text-slate-400 text-sm"> </p>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed max-w-md">
+                        A plataforma mais completa de  avançadas do Brasil. 19 módulos especializados para suas necessidades profissionais.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-black dark:text-white font-bold mb-4">Links Rápidos</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#modulos" class="text-slate-400 hover:text-space-primary transition-colors">Módulos</a></li>
+                        <li><a href="#planos" class="text-slate-400 hover:text-space-primary transition-colors">Planos</a></li>
+                        <li><a href="#beneficios" class="text-slate-400 hover:text-space-primary transition-colors">Referência</a></li>
+                        <li><a href="acesso.php" class="text-slate-400 hover:text-space-primary transition-colors">Acessar</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-black dark:text-white font-bold mb-4">Suporte</h4>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="https://t.me/SpaceBuscasSupport" target="_blank" class="text-slate-400 hover:text-space-primary transition-colors flex items-center">
+                                <i class="bx bx-support mr-2"></i>
+                                Suporte Técnico
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://t.me/SpaceBuscasPainel" target="_blank" class="text-slate-400 hover:text-space-primary transition-colors flex items-center">
+                                <i class="bx bx-broadcast mr-2"></i>
+                                Canal Oficial
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Painel IP -->
+<!-- Painel IP com borda colorida e efeito de cadeado -->
+<div id="painel-ip" style="
+  position: relative;
+  background: rgba(0, 0, 0, 0.75);
+  border: 3px solid #00ffff;
+  border-radius: 20px;
+  padding: 25px;
+  margin: 50px auto;
+  text-align: center;
+  max-width: 400px;
+  backdrop-filter: blur(10px);
+  transform: translateY(80px);
+  opacity: 0;
+  animation: slideUp 1.2s ease-out forwards, bordaCores 6s linear infinite;
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  box-shadow: 0 0 20px #00ffff88;
+  overflow: hidden;
+">
+
+  <div class="titulo-ip" style="font-size: 0.95rem; color: #ccc; margin-bottom: 12px;">
+    🔐 Por medidas de segurança, checaremos seu endereço de IP.<br>Ninguém fora do site terá acesso.
+  </div>
+
+  <div class="subtitulo-ip" style="font-size: 1.1rem; letter-spacing: 1px; color: #00ffff; text-transform: uppercase; margin-bottom: 8px;">
+    Aqui seu IP
+  </div>
+
+  <div id="ipValor" style="
+    font-weight: bold;
+    color: #00ff71;
+    font-size: 1.7rem;
+    margin-top: 8px;
+    text-shadow: 0 0 15px #00ff71aa;
+  ">🔒🔒🔒🔒🔒🔒🔒</div>
+</div>
+
+<style>
+@keyframes slideUp {
+  0% {
+    transform: translateY(80px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Faz as bordas mudarem de cor */
+@keyframes bordaCores {
+  0% {
+    border-color: #00ffff;
+    box-shadow: 0 0 15px #00ffffaa;
+  }
+  25% {
+    border-color: #00ff71;
+    box-shadow: 0 0 15px #00ff71aa;
+  }
+  50% {
+    border-color: #ff00ff;
+    box-shadow: 0 0 15px #ff00ffaa;
+  }
+  75% {
+    border-color: #ffcc00;
+    box-shadow: 0 0 15px #ffcc00aa;
+  }
+  100% {
+    border-color: #00ffff;
+    box-shadow: 0 0 15px #00ffffaa;
+  }
+}
+</style>
+
+<script>
+function alternarIP(ip) {
+  const ipValor = document.getElementById('ipValor');
+  let mostrandoCadeado = true;
+
+  // alterna entre cadeados e o IP real
+  setInterval(() => {
+    if (mostrandoCadeado) {
+      ipValor.innerText = ip;
+      ipValor.style.color = '#00ffff';
+      ipValor.style.textShadow = '0 0 20px #00ffffbb';
+    } else {
+      ipValor.innerText = '🔒🔒🔒🔒🔒🔒🔒';
+      ipValor.style.color = '#00ff71';
+      ipValor.style.textShadow = '0 0 20px #00ff71bb';
+    }
+    mostrandoCadeado = !mostrandoCadeado;
+  }, 2000);
+}
+
+fetch('https://api.ipify.org?format=json')
+  .then(response => response.json())
+  .then(data => {
+    // espera um segundo e começa o efeito de alternância
+    setTimeout(() => alternarIP(data.ip), 1000);
+  })
+  .catch(() => {
+    const ipValor = document.getElementById('ipValor');
+    ipValor.innerText = 'Sem acesso ao IP';
+    ipValor.style.color = '#ff4444';
+    ipValor.style.textShadow = '0 0 15px #ff4444aa';
+  });
+</script>
+            
+            <div class="border-t border-slate-800 pt-8 text-center">
+                <p class="text-slate-500">
+                    © 2025 Mz Conteúdos <br> Todos os direitos reservados. 
+                    <span class="text-space-primary"></span> 
+                
+           
+        </div>
+    </footer>
+    <script>
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrolled / maxScroll) * 100;
+            document.getElementById('scrollProgress').style.width = progress + '%';
+        });
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(15, 23, 42, 0.95)';
+            } else {
+                navbar.style.background = 'rgba(15, 23, 42, 0.9)';
+            }
+        });
+        function toggleMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('mobileOverlay');
+            
+            mobileMenu.classList.toggle('open');
+            overlay.classList.toggle('open');
+        }
+        const observeElements = () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.module-card, .glass-card').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'all 0.6s cubic-bezier(0.1, 0, 0.1, 1)';
+                observer.observe(el);
+            });
+        };
+        document.addEventListener('DOMContentLoaded', function() {
+            observeElements();
+            fetchTestimonials();
+        });
+        let ticking = false;
+        function updateOnScroll() {
+            ticking = false;
+        }
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(updateOnScroll);
+                ticking = true;
+            }
+        });
+        async function fetchTestimonials() {
+            try {
+                const response = await fetch('get_top_testimonials.php');
+                const data = await response.json();
+                if (data.success && data.testimonials.length > 0) {
+                    const container = document.getElementById('testimonialsContainer');
+                    container.innerHTML = ''; // Clear existing content
+                    data.testimonials.forEach(testimonial => {
+                        const stars = '⭐'.repeat(testimonial.avaliacao);
+                        const testimonialCard = `
+                            <div class="glass-card rounded-2xl p-8 relative overflow-hidden group hover:scale-105 transition-transform duration-300">
+                                <div class="absolute top-4 left-4 text-space-primary/20 text-6xl opacity-70 group-hover:opacity-100 transition-opacity duration-300">
+                                    <i class="bx bxs-quote-alt-left"></i>
+                                </div>
+                                <div class="flex justify-center mb-4">
+                                    <div class="w-16 h-16 bg-space-primary/20 rounded-full flex items-center justify-center">
+                                        <i class="bx bx-user text-3xl text-space-primary"></i>
+                                    </div>
+                                </div>
+                                <h3 class="text-xl font-bold text-black dark:text-white mb-2">${testimonial.usuario}</h3>
+                                <p class="text-yellow-400 text-lg mb-3">${stars}</p>
+                                <p class="text-slate-300 leading-relaxed text-center relative z-10">"${testimonial.mensagem}"</p>
+                            </div>
+                        `;
+                        container.innerHTML += testimonialCard;
+                    });
+                } else {
+                    console.log('Nenhum depoimento encontrado ou erro ao buscar.');
+                }
+            } catch (error) {
+                console.error('Erro ao buscar depoimentos:', error);
+            }
+        }
+    </script>
+    <!-- Sidebar Direita -->
+<div id="sidebar" class="fixed top-0 right-0 h-full w-72 bg-[rgba(15,23,42,0.95)] backdrop-blur-xl text-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-50">
+  <div class="p-6 flex justify-between items-center border-b border-slate-700">
+    <h2 class="text-xl font-bold">Menu</h2>
+    <button onclick="toggleSidebar()" class="text-slate-400 hover:text-white transition">
+      <i class="bx bx-x text-2xl"></i>
+    </button>
+  </div>
+  <ul class="p-6 space-y-4">
+    <li><a href="#modulos" class="block text-slate-300 hover:text-space-primary transition">🧩 Módulos</a></li>
+    <li><a href="#planos" class="block text-slate-300 hover:text-space-primary transition">💎 Planos</a></li>
+    <li><a href="#beneficios" class="block text-slate-300 hover:text-space-primary transition">🎁 Benefícios</a></li>
+    <li><a href="acesso.php" class="block text-slate-300 hover:text-space-primary transition">🚀 Acessar</a></li>
+    <li><a href="https://t.me/SpaceBuscasSupport" target="_blank" class="block text-slate-300 hover:text-space-primary transition">💬 Suporte</a></li>
+  </ul>
+</div>
+
+<!-- Fundo escurecido -->
+<div id="sidebarOverlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-40" onclick="toggleSidebar()"></div>
+
+<script>
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  
+  const isOpen = !sidebar.classList.contains('translate-x-full');
+  
+  if (isOpen) {
+    sidebar.classList.add('translate-x-full');
+    overlay.classList.add('hidden');
+  } else {
+    sidebar.classList.remove('translate-x-full');
+    overlay.classList.remove('hidden');
+  }
+}
+</script>
+<script>
+  const tempoInatividade = 8 * 60 * 1000; // 8 minutos
+  let timeoutId;
+
+  // Função que redireciona para a página de login
+  function redirecionarLogin() {
+      window.location.href = 'index.html'; // Substitua pelo seu arquivo de login
+  }
+
+  // Função para reiniciar o timer
+  function resetTimer() {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(redirecionarLogin, tempoInatividade);
+  }
+
+  // Eventos que indicam atividade do usuário
+  ['mousemove', 'keydown', 'scroll', 'click', 'touchstart'].forEach(evt => {
+      window.addEventListener(evt, resetTimer, false);
+  });
+
+  // Inicializa o timer quando a página carrega
+  resetTimer();
+</script>
+</body>
+</html>

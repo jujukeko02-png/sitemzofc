@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mz Conteúdos</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        accent: {
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                        },
+                        neutral: {
+                            50: '#f8fafc',
+                            900: '#0f172a',
+                        },
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'scale-in': 'scaleIn 0.6s ease-out',
+                        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+                        'bounce-in': 'bounceIn 0.8s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        scaleIn: {
+                            '0%': { transform: 'scale(0.95)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 10px rgba(59, 130, 246, 0.3)' },
+                            '50%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.5)' },
+                        },
+                        bounceIn: {
+                            '0%': { transform: 'scale(0.8)', opacity: '0' },
+                            '50%': { transform: 'scale(1.1)', opacity: '0.5' },
+                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        },
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px rgba(0, 0, 0, 0.1)',
+                        'glass-dark': '0 8px 32px rgba(0, 0, 0, 0.3)',
+                    },
+                    backdropBlur: {
+                        'glass': '16px',
+                    },
+                },
+            },
+        };
+    </script>
+    
+    <style type="text/css">
+        /* Glassmorphism effect */
+        .glass-effect {
+            @apply bg-white/50 dark:bg-gray-800/60 backdrop-blur-glass border border-white/40 dark:border-gray-700/40;
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+        }
+        /* Fallback for browsers without backdrop-filter support */
+        @supports not (backdrop-filter: blur(16px)) {
+            .glass-effect {
+                @apply bg-white/80 dark:bg-gray-800/80;
+            }
+        }
+        /* Mobile-specific header and menu styling */
+        @media (max-width: 768px) {
+            header.glass-effect, #mobileMenu.glass-effect {
+                -webkit-backdrop-filter: blur(16px);
+                backdrop-filter: blur(16px);
+                @apply bg-white/60 dark:bg-gray-800/70;
+            }
+        }
+        /* Card hover effect */
+        .card-hover {
+            @apply transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:scale-103;
+        }
+        /* Prevent horizontal overflow */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+        /* Smooth transitions */
+        * {
+            transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            @apply bg-gray-100 dark:bg-gray-800;
+        }
+        ::-webkit-scrollbar-thumb {
+            @apply bg-blue-600 rounded-full;
+        }
+        /* Focus styles */
+        a:focus, button:focus {
+            @apply outline-none ring-2 ring-blue-500 ring-opacity-50;
+        }
+        /* Parallax image */
+        .parallax-img {
+            transform: translateY(0);
+            transition: transform 0.5s ease-out;
+        }
+        /* Force logo text color in dark mode */
+        .dark .logo-text {
+            color: #ffffff !important;
+        }
+        /* Floating WhatsApp button */
+        .whatsapp-float {
+            @apply fixed bottom-6 right-6 z-50 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-all duration-300;
+        }
+        .whatsapp-float:hover {
+            @apply scale-110;
+        }
+        /* Tab styles */
+        .tab-active {
+            @apply border-b-2 border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+        /* Product card grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        @media (max-width: 640px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* Product card aspect ratio */
+        .product-card-image {
+            aspect-ratio: 16/9;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="font-inter antialiased bg-neutral-50 dark:bg-neutral-900 transition-colors duration-300">
+
+    <!-- Header/Navigation -->
+    <header class="fixed w-full top-0 z-50 glass-effect shadow-lg transition-all">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="index.php" class="text-2xl font-bold text-gray-900 dark:text-white logo-text" aria-label="Home">
+                    Mz Conteúdos               </a>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.php#why-choose" class="text-gray-700 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Por que nós?</a>
+                    <a href="products.php" class="text-blue-600 dark:text-blue-400 transition-colors">Produtos</a>
+                    <a href="index.php#services" class="text-gray-700 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Serviços</a>
+                    <button id="themeToggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="Alternar tema">
+                        <i class="fas fa-sun text-yellow-500 dark:hidden"></i>
+                        <i class="fas fa-moon text-blue-400 hidden dark:inline"></i>
+                    </button>
+                </div>
+                
+                <button class="md:hidden p-2" id="mobileMenuBtn" aria-label="Abrir menu">
+                    <i class="fas fa-bars text-gray-700 dark:text-gray-100"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile menu -->
+            <div class="md:hidden hidden glass-effect mt-2 rounded-xl" id="mobileMenu">
+                <div class="py-4 px-4 space-y-4">
+
+                    
+                    <a href="https://mzconteudos.duckdns.org/indexx.html" class="block text-gray-700 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400">Voltar a página inicial</a>
+                    <button id="mobileThemeToggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="Alternar tema">
+                        <i class="fas fa-sun text-yellow-500 dark:hidden"></i>
+                        <i class="fas fa-moon text-blue-400 hidden dark:inline"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-32 lg:pt-40 pb-20 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="max-w-7xl mx-auto text-center">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-gray-900 dark:text-white mb-6" data-gsap="slide-up">
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">Novidades <Br> Mz Conteúdos</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-200 max-w-3xl mx-auto mb-12" data-gsap="fade-in">
+                    Fique por dentro de tudo que rola de novidades aqui no nosso site , canal e mundo, tanto Dev quanto Web.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Categories Tabs -->
+
+                
+                <!-- Tab Content -->
+                                <div id="tab-datacenter" class="tab-content active">
+                    <div class="text-center mb-12" data-gsap="slide-up">
+                        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                            <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
+                                         <br>  
+             <br>    
+             Top 5 Novidades 
+             <br>  
+             <br>                          </span>
+                        </h2>
+                        <p class="text-lg text-gray-600 dark:text-gray-200 max-w-3xl mx-auto">
+               Criação do mais novo Canal Dev da Web, que promete crescer e conquistar diversas mentes brilhantes do Whatsapp.                         </p>
+                    </div>
+                    
+                    <div class="product-grid">
+                                                <div class="glass-effect rounded-3xl overflow-hidden card-hover" data-gsap="bounce-in">
+                            <div class="aspect-w-16 aspect-h-9 overflow-hidden">
+                                <img 
+                                    src="https://files.catbox.moe/8y9u06.jpg" 
+                                    alt="Colocation" 
+                                    class="w-full h-48 object-cover transition-transform duration-500 hover:scale-110"
+                                >
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mr-3">
+                                        <i class="fas fa-server text-xl text-blue-600 dark:text-blue-400"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                       Novo Canal                               </h3>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-200 mb-6">
+                                    Criado por <strong>Dylan , Yato (Zeno) e Mz</strong>, o novo canal tende a alcançar público onde que esteja , aumentando a quantidade de membros e contatos                         </p>
+                                <a href="https://whatsapp.com/channel/0029VbBJyXL9WtCCQ9fZNd1J" 
+                                   class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all hover:shadow-lg hover:shadow-blue-600/50" 
+                                   aria-label="Ver detalhes">
+                Fazer Parte
+                                </a>
+                               
+                            </div>
+                   <Br>      
+                        <p class="text-gray-600 dark:text-gray-200 mb-6">
+              ➡️ Novo <strong>Pack Mistérioso</strong> saindo na área, logo será solto de graça e fiquem atentos, pois , somente as primeiras <strong>50</strong> pessoas terão acessos.                         </p> 
+                        </div>
+                                                <div class="glass-effect rounded-3xl overflow-hidden card-hover" data-gsap="bounce-in">
+                            <div class="aspect-w-16 aspect-h-9 overflow-hidden">
+                                <img 
+                                    src="https://files.catbox.moe/mrl4th.jpg" 
+                                    alt="Colocation Gerenciado" 
+                                    class="w-full h-48 object-cover transition-transform duration-500 hover:scale-110"
+                                >
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mr-3">
+                                        <i class="fas fa-server text-xl text-blue-600 dark:text-blue-400"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                        Pack Mistérioso                                  </h3>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-200 mb-6">
+                                    Todo Ano , o Dev <strong>Mz</strong> , solta um Pack gigante com diversos conteúdos e arquivos , sejam eles de bots , sites , apis , aplicativos e muitos mais...                      </p>
+                                
+                            </div>
+                        </div>
+                                                <div class="glass-effect rounded-3xl overflow-hidden card-hover" data-gsap="bounce-in">
+                            <div class="aspect-w-16 aspect-h-9 overflow-hidden">
+                                <img 
+                                    src="https://files.catbox.moe/ytrm7m.jpg" 
+                                    alt="Aluguel de Rack" 
+                                    class="w-full h-48 object-cover transition-transform duration-500 hover:scale-110"
+                                >
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mr-3">
+                                        <i class="fas fa-cubes text-xl text-blue-600 dark:text-blue-400"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                        Arquivos Takira Free                        </h3>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-200 mb-6">
+                                    Todos os arquivos do takira , da base inicial, até a versão 4 totalmente de graça. Fique de olho , o dia será postado aqui.                        </p>
+                                <a href="https://files.catbox.moe/3d2gwm.jpg" 
+                                   class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all hover:shadow-lg hover:shadow-blue-600/50" 
+                                   aria-label="Ver detalhes">
+                      Ver o dia 
+                                </a>
+                            </div>
+                        </div>
+                                            </div>
+                </div>
+                                <div id="tab-connectivity" class="tab-content ">
+                    <div class="text-center mb-12" data-gsap="slide-up">
+                        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                            <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
+                                Conectividade                            </span>
+                        </h2>
+                        <p class="text-lg text-gray-600 dark:text-gray-200 max-w-3xl mx-auto">
+                            Conexões de alta velocidade e baixa latência                        </p>
+                    </div>
+                    
+                    <div class="product-grid">
+                                                <div class="glass-effect rounded-3xl overflow-hidden card-hover" data-gsap="bounce-in">
+                            <div class="aspect-w-16 aspect-h-9 overflow-hidden">
+                                <img 
+                                    src="https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg" 
+                                    alt="Link Dedicado" 
+                                    class="w-full h-48 object-cover transition-transform duration-500 hover:scale-110"
+                                >
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mr-3">
+                                        <i class="fas fa-network-wired text-xl text-blue-600 dark:text-blue-400"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                        Link Dedicado                                    </h3>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-200 mb-6">
+                                    Conexão exclusiva e de alta performance                                </p>
+                                <a href="product-detail.php?slug=link_dedicado" 
+                                   class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all hover:shadow-lg hover:shadow-blue-600/50" 
+                                   aria-label="Ver detalhes">
+                                    Ver Detalhes
+                                </a>
+                            </div>
+                        </div>
+                                                <div class="glass-effect rounded-3xl overflow-hidden card-hover" data-gsap="bounce-in">
+                            <div class="aspect-w-16 aspect-h-9 overflow-hidden">
+                                <img 
+                                    src="https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg" 
+                                    alt="Trânsito IP" 
+                                    class="w-full h-48 object-cover transition-transform duration-500 hover:scale-110"
+                                >
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mr-3">
+                                        <i class="fas fa-globe text-xl text-blue-600 dark:text-blue-400"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                        Trânsito IP                                    </h3>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-200 mb-6">
+                                    Conectividade global para seu AS                                </p>
+                                <a href="product-detail.php?slug=transito_ip" 
+                                   class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all hover:shadow-lg hover:shadow-blue-600/50" 
+                                   aria-label="Ver detalhes">
+                                    Ver Detalhes
+                                </a>
+                            </div>
+                        </div>
+                                                <div class="glass-effect rounded-3xl overflow-hidden card-hover" data-gsap="bounce-in">
+                            <div class="aspect-w-16 aspect-h-9 overflow-hidden">
+                                <img 
+                                    src="https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg" 
+                                    alt="Fibra Apagada" 
+                                    class="w-full h-48 object-cover transition-transform duration-500 hover:scale-110"
+                                >
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mr-3">
+                                        <i class="fas fa-road text-xl text-blue-600 dark:text-blue-400"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                        Fibra Apagada                                    </h3>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-200 mb-6">
+                                    Infraestrutura de fibra óptica para sua rede                                </p>
+                                <a href="product-detail.php?slug=fibra_apagada" 
+                                   class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all hover:shadow-lg hover:shadow-blue-600/50" 
+                                   aria-label="Ver detalhes">
+                                    Ver Detalhes
+                                </a>
+                            </div>
+                        </div>
+                                                <div class="glass-effect rounded-3xl overflow-hidden card-hover" data-gsap="bounce-in">
+                            <div class="aspect-w-16 aspect-h-9 overflow-hidden">
+                                <img 
+                                    src="https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg" 
+                                    alt="Transporte" 
+                                    class="w-full h-48 object-cover transition-transform duration-500 hover:scale-110"
+                                >
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mr-3">
+                                        <i class="fas fa-exchange-alt text-xl text-blue-600 dark:text-blue-400"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                        Transporte                                    </h3>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-200 mb-6">
+                                    Conexão ponto a ponto de alta capacidade                                </p>
+                                <a href="product-detail.php?slug=transporte" 
+                                   class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all hover:shadow-lg hover:shadow-blue-600/50" 
+                                   aria-label="Ver detalhes">
+                                    Ver Detalhes
+                                </a>
+                            </div>
+                        </div>
+                                                <div class="glass-effect rounded-3xl overflow-hidden card-hover" data-gsap="bounce-in">
+                            <div class="aspect-w-16 aspect-h-9 overflow-hidden">
+                                <img 
+                                    src="https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg" 
+                                    alt="Serviços de Satélite" 
+                                    class="w-full h-48 object-cover transition-transform duration-500 hover:scale-110"
+                                >
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mr-3">
+                                        <i class="fas fa-satellite text-xl text-blue-600 dark:text-blue-400"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                        Serviços de Satélite                                    </h3>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-200 mb-6">
+                                    Conectividade em qualquer lugar                                </p>
+                                <a href="product-detail.php?slug=satelite" 
+                                   class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all hover:shadow-lg hover:shadow-blue-600/50" 
+                                   aria-label="Ver detalhes">
+                                    Ver Detalhes
+                                </a>
+                            </div>
+                        </div>
+                                            </div>
+                </div>
+                                <div id="tab-cloud" class="tab-content ">
+                    <div class="text-center mb-12" data-gsap="slide-up">
+                        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                            <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
+                                Cloud                            </span>
+                        </h2>
+                        <p class="text-lg text-gray-600 dark:text-gray-200 max-w-3xl mx-auto">
+                            Soluções em nuvem escaláveis e seguras                        </p>
+                    </div>
+                    
+                    <div class="product-grid">
+                                                <div class="glass-effect rounded-3xl overflow-hidden card-hover" data-gsap="bounce-in">
+                            <div class="aspect-w-16 aspect-h-9 overflow-hidden">
+                                <img 
+                                    src="https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg" 
+                                    alt="Cloud Server" 
+                                    class="w-full h-48 object-cover transition-transform duration-500 hover:scale-110"
+                                >
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mr-3">
+                                        <i class="fas fa-cloud text-xl text-blue-600 dark:text-blue-400"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                        Cloud Server                                    </h3>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-200 mb-6">
+                                    Servidores virtuais de alta performance                                </p>
+                                <a href="product-detail.php?slug=cloud_server" 
+                                   class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all hover:shadow-lg hover:shadow-blue-600/50" 
+                                   aria-label="Ver detalhes">
+                                    Ver Detalhes
+                                </a>
+                            </div>
+                        </div>
+                                                <div class="glass-effect rounded-3xl overflow-hidden card-hover" data-gsap="bounce-in">
+                            <div class="aspect-w-16 aspect-h-9 overflow-hidden">
+                                <img 
+                                    src="https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg" 
+                                    alt="Backup na Nuvem" 
+                                    class="w-full h-48 object-cover transition-transform duration-500 hover:scale-110"
+                                >
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mr-3">
+                                        <i class="fas fa-hdd text-xl text-blue-600 dark:text-blue-400"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                        Backup na Nuvem                                    </h3>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-200 mb-6">
+                                    Proteção de dados segura e confiável                                </p>
+                                <a href="product-detail.php?slug=backup_cloud" 
+                                   class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all hover:shadow-lg hover:shadow-blue-600/50" 
+                                   aria-label="Ver detalhes">
+                                    Ver Detalhes
+                                </a>
+                            </div>
+                        </div>
+                                            </div>
+                </div>
+                                <div id="tab-consulting" class="tab-content ">
+                    <div class="text-center mb-12" data-gsap="slide-up">
+                        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                            <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
+                                Consultoria                            </span>
+                        </h2>
+                        <p class="text-lg text-gray-600 dark:text-gray-200 max-w-3xl mx-auto">
+                            Serviços especializados para otimizar sua infraestrutura                        </p>
+                    </div>
+                    
+                    <div class="product-grid">
+                                                <div class="glass-effect rounded-3xl overflow-hidden card-hover" data-gsap="bounce-in">
+                            <div class="aspect-w-16 aspect-h-9 overflow-hidden">
+                                <img 
+                                    src="https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg" 
+                                    alt="Consultoria em TI" 
+                                    class="w-full h-48 object-cover transition-transform duration-500 hover:scale-110"
+                                >
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mr-3">
+                                        <i class="fas fa-clipboard-list text-xl text-blue-600 dark:text-blue-400"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                        Consultoria em TI                                    </h3>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-200 mb-6">
+                                    Expertise técnica para otimizar sua infraestrutura                                </p>
+                                <a href="product-detail.php?slug=consultoria" 
+                                   class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all hover:shadow-lg hover:shadow-blue-600/50" 
+                                   aria-label="Ver detalhes">
+                                    Ver Detalhes
+                                </a>
+                            </div>
+                        </div>
+                                                <div class="glass-effect rounded-3xl overflow-hidden card-hover" data-gsap="bounce-in">
+                            <div class="aspect-w-16 aspect-h-9 overflow-hidden">
+                                <img 
+                                    src="https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg" 
+                                    alt="Projeto de Data Center" 
+                                    class="w-full h-48 object-cover transition-transform duration-500 hover:scale-110"
+                                >
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mr-3">
+                                        <i class="fas fa-drafting-compass text-xl text-blue-600 dark:text-blue-400"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                        Projeto de Data Center                                    </h3>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-200 mb-6">
+                                    Planejamento e implementação de data centers                                </p>
+                                <a href="product-detail.php?slug=projeto_datacenter" 
+                                   class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all hover:shadow-lg hover:shadow-blue-600/50" 
+                                   aria-label="Ver detalhes">
+                                    Ver Detalhes
+                                </a>
+                            </div>
+                        </div>
+                                            </div>
+                </div>
+                            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-br from-blue-600 to-purple-600 dark:from-blue-800 dark:to-purple-800">
+        <div class="container mx-auto px-4">
+            <div class="max-w-5xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-6" data-gsap="slide-up">
+              Alguma dúvida?
+                </h2>
+                <p class="text-lg md:text-xl text-blue-100 mb-8 max-w-3xl mx-auto" data-gsap="fade-in">
+                    Entre em contato com nossa equipe de suporte e descubra diversas outras novidades.
+                </p>
+                <a href="https://wa.me/553171917951" 
+                   target="_blank"
+                   class="inline-block bg-white hover:bg-gray-100 text-blue-600 px-8 py-4 rounded-xl font-semibold transition-all hover:shadow-lg animate-pulse-glow" 
+                   aria-label="Falar com consultor"
+                   data-gsap="bounce-in">
+                    <i class="fab fa-whatsapp mr-2"></i>
+         Entrar em contato
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid md:grid-cols-3 gap-8 mb-8">
+                    
+                   
+                 
+                
+                <div class="border-t border-gray-800 pt-8 text-center">
+                    <p class="text-gray-400 mb-2">
+                        © 2025 Mz Conteúdos <br> Todos os direitos reservados                    </p>
+                </div>
+           
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/5511950318547" 
+       target="_blank" 
+       class="whatsapp-float" 
+       aria-label="Contato via WhatsApp">
+        <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
+
+    <!-- JavaScript -->
+    <script>
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Animate elements with data-gsap attribute
+        document.querySelectorAll('[data-gsap="slide-up"]').forEach((el, index) => {
+            gsap.from(el, {
+                opacity: 0,
+                y: 50,
+                duration: 0.8,
+                ease: 'power3.out',
+                delay: index * 0.2,
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none',
+                },
+            });
+        });
+
+        document.querySelectorAll('[data-gsap="fade-in"]').forEach((el, index) => {
+            gsap.from(el, {
+                opacity: 0,
+                duration: 0.8,
+                ease: 'power3.out',
+                delay: index * 0.2,
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none',
+                },
+            });
+        });
+
+        document.querySelectorAll('[data-gsap="scale-in"]').forEach((el) => {
+            gsap.from(el, {
+                opacity: 0,
+                scale: 0.95,
+                duration: 0.8,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none',
+                },
+            });
+        });
+
+        document.querySelectorAll('[data-gsap="bounce-in"]').forEach((el, index) => {
+            gsap.from(el, {
+                opacity: 0,
+                scale: 0.8,
+                duration: 0.8,
+                ease: 'back.out(1.7)',
+                delay: index * 0.1,
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none',
+                },
+            });
+        });
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+        const html = document.documentElement;
+
+        // Check for saved theme preference
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+
+        // Theme toggle handler
+        const toggleTheme = () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        };
+
+        themeToggle.addEventListener('click', toggleTheme);
+        mobileThemeToggle.addEventListener('click', toggleTheme);
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            mobileMenu.classList.toggle('hidden');
+            gsap.fromTo(mobileMenu.querySelectorAll('a, button'), 
+                { opacity: 0, y: 20 },
+                { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power3.out' }
+            );
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+
+        // Tabs functionality
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.getAttribute('data-tab');
+                
+                // Update URL with selected category
+                const url = new URL(window.location);
+                url.searchParams.set('category', tabId);
+                window.history.pushState({}, '', url);
+                
+                // Update active tab button
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('tab-active');
+                    btn.classList.add('text-gray-500', 'hover:text-gray-700', 'dark:text-gray-400', 'dark:hover:text-gray-200');
+                });
+                button.classList.add('tab-active');
+                button.classList.remove('text-gray-500', 'hover:text-gray-700', 'dark:text-gray-400', 'dark:hover:text-gray-200');
+                
+                // Show selected tab content
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(`tab-${tabId}`).classList.add('active');
+            });
+        });
+
+        // Micro-interactions: Button and card hover effects
+        document.querySelectorAll('.card-hover').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                gsap.to(el, { 
+                    scale: 1.03, 
+                    duration: 0.3, 
+                    ease: 'power2.out' 
+                });
+            });
+            el.addEventListener('mouseleave', () => {
+                gsap.to(el, { 
+                    scale: 1, 
+                    duration: 0.3, 
+                    ease: 'power2.out' 
+                });
+            });
+        });
+    </script>
+</body>
+</html>

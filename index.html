@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login / Cadastro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+
+    body {
+      background: linear-gradient(145deg, #0f0f0f, #1e1e1e);
+      display: flex; justify-content: center; align-items: center;
+      height: 100vh; overflow: hidden; color: white;
+    }
+
+    .container {
+      background: #121212;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(0, 255, 204, 0.2);
+      overflow: hidden;
+      width: 100%; max-width: 420px;
+    }
+
+    .forms-wrapper {
+      display: flex;
+      width: 200%;
+      transition: transform 0.6s ease;
+    }
+
+    form {
+      width: 50%;
+      padding: 40px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #00ffcc;
+    }
+
+    .form-group { margin-bottom: 20px; }
+    label { color: #bbb; font-size: 0.9rem; display: block; margin-bottom: 5px; }
+
+    input {
+      width: 100%; padding: 12px; border-radius: 8px; border: none;
+      background: #1f1f1f; color: white;
+      box-shadow: inset 0 0 5px rgba(0, 255, 204, 0.1);
+      transition: box-shadow 0.3s;
+    }
+
+    input:focus { outline: none; box-shadow: 0 0 10px #00ffcc; }
+
+    button {
+      width: 100%; padding: 12px; border: none;
+      border-radius: 8px; background: #00ffcc;
+      color: black; font-weight: bold; cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover { background: #00e6b8; }
+
+    .extras { text-align: center; margin-top: 15px; }
+    .extras a { color: #00ffcc; text-decoration: none; font-size: 0.9rem; }
+    .extras a:hover { text-decoration: underline; }
+
+    .slide-right { transform: translateX(-50%); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="forms-wrapper" id="formsWrapper">
+      
+      <!-- LOGIN -->
+      <form id="loginForm">
+        <h2>Entrar</h2>
+        <div class="form-group">
+          <label for="loginEmail">Email</label>
+          <input type="email" id="loginEmail" required />
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Senha</label>
+          <input type="password" id="loginPassword" required />
+        </div>
+        <button type="submit">Entrar</button>
+        <div class="extras">
+          <p><a href="#" onclick="toggleForms()">Não tem conta? Criar</a></p>
+          <p><a href="recuperarsenha.html">Esqueceu a senha?</a></p>
+        </div>
+      </form>
+
+      <!-- CADASTRO -->
+      <form id="signupForm">
+        <h2>Criar Conta</h2>
+        <div class="form-group">
+          <label for="signupEmail">Email</label>
+          <input type="email" id="signupEmail" required />
+        </div>
+        <div class="form-group">
+          <label for="signupPassword">Senha</label>
+          <input type="password" id="signupPassword" required />
+        </div>
+        <div class="form-group">
+          <label for="signupConfirm">Confirmar Senha</label>
+          <input type="password" id="signupConfirm" required />
+        </div>
+        <button type="submit">Cadastrar</button>
+        <div class="extras">
+          <p><a href="#" onclick="toggleForms()">Já tem conta? Entrar</a></p>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.5.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.5.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.5.2/firebase-firestore-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAr6sJhI7c90FnbGU1BVT7guZcBf8mk2XU",
+      authDomain: "alianceztx-c33d3.firebaseapp.com",
+      projectId: "alianceztx-c33d3",
+      storageBucket: "alianceztx-c33d3.firebasestorage.app",
+      messagingSenderId: "488999147814",
+      appId: "1:488999147814:web:a75f4234d12bc1cd3409e7",
+      measurementId: "G-KF7RTNZYEF"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    const wrapper = document.getElementById('formsWrapper');
+
+    function toggleForms() {
+      wrapper.classList.toggle('slide-right');
+    }
+
+    // LOGIN
+    document.getElementById("loginForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then(() => {
+          alert("Login realizado com sucesso!");
+          window.location.href = "indexx.html";
+        })
+        .catch((error) => {
+          alert("Erro ao entrar: " + error.message);
+        });
+    });
+
+    // CADASTRO
+    document.getElementById("signupForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("signupEmail").value;
+      const password = document.getElementById("signupPassword").value;
+      const confirm = document.getElementById("signupConfirm").value;
+
+      if (password !== confirm) {
+        alert("As senhas não coincidem!");
+        return;
+      }
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          const uid = userCredential.user.uid;
+
+          db.collection("usuarios").doc(uid).set({
+            email: email,
+            criadoEm: new Date()
+          });
+
+          alert("Conta criada com sucesso!");
+          window.location.href = "indexx.html";
+        })
+        .catch((error) => {
+          alert("Erro ao criar conta: " + error.message);
+        });
+    });
+  </script>
+</body>
+</html>

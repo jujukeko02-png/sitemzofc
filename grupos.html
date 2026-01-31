@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Minhas Histórias</title>
+  <style>
+    body {
+  background-color: #000;
+  color: #0ff;
+  font-family: sans-serif;
+  text-align: center;
+  padding: 20px;
+  background-image: url('https://files.catbox.moe/vz6ig2.gif');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.botao-historia {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  background: transparent;
+  border: 2px solid #0ff;
+  color: #0ff;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 20px; /* aqui */
+  transition: 0.3s;
+}
+    .botao-historia:hover {
+      background: #0ff;
+      color: #000;
+    }
+    .imagem-audio img {
+      max-width: 200px;
+      margin: 10px 0;
+      border-radius: 10px;
+    }
+    
+    
+    @keyframes neonColorCycle {
+  0%, 100% { color: #0ff; text-shadow: 0 0 5px #0ff, 0 0 10px #0ff; }
+  25% { color: #f0f; text-shadow: 0 0 5px #f0f, 0 0 10px #f0f; }
+  50% { color: #ff0; text-shadow: 0 0 5px #ff0, 0 0 10px #ff0; }
+  75% { color: #0f0; text-shadow: 0 0 5px #0f0, 0 0 10px #0f0; }
+}
+
+.botao-historia {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  background: transparent;
+  border: 2px solid currentColor;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  font-family: monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: neonColorCycle 10s linear infinite;
+  /* texto inicia vazio e será digitado via JS */
+}
+    .voltar-btn {
+      display: none;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #f0f;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      cursor: pointer;
+    }
+    .reacoes {
+      margin-top: 15px;
+    }
+    .reacoes button {
+      margin: 5px;
+      padding: 10px 15px;
+      background-color: #111;
+      border: 1px solid #0ff;
+      border-radius: 8px;
+      color: #0ff;
+      cursor: pointer;
+    }
+    .reacoes button:hover {
+      background-color: #0ff;
+      color: #000;
+    }
+    
+    @keyframes neonColorCycle {
+  0%, 100% { color: #0ff; text-shadow: 0 0 5px #0ff, 0 0 10px #0ff; }
+  25% { color: #f0f; text-shadow: 0 0 5px #f0f, 0 0 10px #f0f; }
+  50% { color: #ff0; text-shadow: 0 0 5px #ff0, 0 0 10px #ff0; }
+  75% { color: #0f0; text-shadow: 0 0 5px #0f0, 0 0 10px #0f0; }
+}
+
+.titulo-neon {
+  font-size: 32px;
+  font-family: 'Orbitron', sans-serif;
+  text-align: center;
+  margin-top: 50px;
+  animation: neonColorCycle 4s linear infinite;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 5px solid #fff;
+}
+  </style>
+</head>
+<body>
+
+<div id="titulo-principal" class="titulo-neon">
+  <div id="linha1"></div>
+  <div id="linha2"></div>
+</div>
+  <h2 id="titulo">⬇️Amizades, Namoro e Zoação⬇️</h2>
+
+  <div id="botoes">
+    <button class="botao-historia" onclick="mostrarHistoria('historia1')">Residência dos 7 Pecados</button>
+    <button class="botao-historia" onclick="mostrarHistoria('historia2')">Chat da Zetronlx Aly Non</button>
+    <button class="botao-historia" onclick="mostrarHistoria('historia3')">🥶 ERA DO GELO 🥶</button>
+    <button class="botao-historia" onclick="mostrarHistoria('historia4')">📖 História 4</button>
+    <button class="botao-historia" onclick="mostrarHistoria('historia5')">📖 História 5</button>
+    <button class="botao-historia" onclick="mostrarHistoria('historia6')">📖 História 6</button>
+    <button class="botao-historia" onclick="mostrarHistoria('historia7')">📖 História 7</button>
+    <button class="botao-historia" onclick="mostrarHistoria('historia8')">📖 História 8</button>
+    <button class="botao-historia" onclick="mostrarHistoria('historia9')">📖 História 9</button>
+    <button class="botao-historia" onclick="mostrarHistoria('historia10')">📖 História 10</button>
+    <button class="botao-historia" onclick="mostrarHistoria('historia11')">📖 História 11</button>
+    <button class="botao-historia" onclick="mostrarHistoria('historia12')">📖 História 12</button>
+    <button class="botao-historia" onclick="mostrarHistoria('historia13')">📖 História 13</button>
+    <button class="botao-historia" onclick="mostrarHistoria('historia14')">📖 História 14</button>
+    <button class="botao-historia" onclick="mostrarHistoria('historia15')">📖 História 15</button>
+    <button class="botao-historia" onclick="mostrarHistoria('historia16')">📖 História 16</button>
+    <button class="botao-historia" onclick="mostrarHistoria('historia17')">📖 História 17</button>
+    <button class="botao-historia" onclick="mostrarHistoria('historia18')">📖 História 18</button>
+    <button class="botao-historia" onclick="mostrarHistoria('historia19')">📖 História 19</button>
+    <button class="botao-historia" onclick="mostrarHistoria('historia20')">📖 História 20</button>
+  </div>
+<!-- INÍCIO DA SEÇÃO 2 -->
+<div id="secao2">
+  <h2 style="color: #0ff;">⬇️Labs de Bots, Projetos e Amizade⬇️</h2>
+
+  <button class="botao-historia" onclick="mostrarHistoria('historia21')">🤖 BotCrafters ⌇</button>
+  <button class="botao-historia" onclick="mostrarHistoria('historia22')">📖 História 22</button>
+  <button class="botao-historia" onclick="mostrarHistoria('historia23')">📖 História 23</button>
+  <button class="botao-historia" onclick="mostrarHistoria('historia24')">📖 História 24</button>
+  <button class="botao-historia" onclick="mostrarHistoria('historia25')">📖 História 25</button>
+  <button class="botao-historia" onclick="mostrarHistoria('historia26')">📖 História 26</button>
+  <button class="botao-historia" onclick="mostrarHistoria('historia27')">📖 História 27</button>
+  <button class="botao-historia" onclick="mostrarHistoria('historia28')">📖 História 28</button>
+  <button class="botao-historia" onclick="mostrarHistoria('historia29')">📖 História 29</button>
+  <button class="botao-historia" onclick="mostrarHistoria('historia30')">📖 História 30</button>
+  <button class="botao-historia" onclick="mostrarHistoria('historia31')">📖 História 31</button>
+  <button class="botao-historia" onclick="mostrarHistoria('historia32')">📖 História 32</button>
+  <button class="botao-historia" onclick="mostrarHistoria('historia33')">📖 História 33</button>
+  <button class="botao-historia" onclick="mostrarHistoria('historia34')">📖 História 34</button>
+  <button class="botao-historia" onclick="mostrarHistoria('historia35')">📖 História 35</button>
+  <button class="botao-historia" onclick="mostrarHistoria('historia36')">📖 História 36</button>
+  <button class="botao-historia" onclick="mostrarHistoria('historia37')">📖 História 37</button>
+  <button class="botao-historia" onclick="mostrarHistoria('historia38')">📖 História 38</button>
+  <button class="botao-historia" onclick="mostrarHistoria('historia39')">📖 História 39</button>
+  <button class="botao-historia" onclick="mostrarHistoria('historia40')">📖 História 40</button>
+</div>
+<!-- FIM DA SEÇÃO 2 -->
+  <div id="exibicao" style="display:none;"></div>
+  <button class="voltar-btn" onclick="voltarInicio()">🔙 Voltar</button>
+
+  <script>
+    const historias = {
+      // MODELO REPETIDO PRA EDIÇÃO FÁCIL
+      historia1: { titulo: "Residência dos 7 Pecados", imagem: "https://files.catbox.moe/im27uv.jpg", texto: "Imperix Comunidade...", link: "https://chat.whatsapp.com/K6enHPiqAMfLUzOz45wUlQ?mode=ac_c" },
+      historia2: { titulo: "Chat da Zetronlx Aly Non", imagem: "https://files.catbox.moe/dyz6dj.jpg", texto: "Regras do grupo: é proibido qualquer tipo de divulgação sem permissão, pornografia, links em geral (ban imediato), conteúdo gore ou +18, flood, exageros na zoeira, piadas com religião e envolvimento com garotas de programa. É obrigatório respeitar os administradores. O bot gratuito utiliza o prefixo ! e possui mais de 700 comandos disponíveis.", link: "https://chat.whatsapp.com/EXbsReOxO8wAN0ChONfSCR?mode=r_c" },
+      historia3: { titulo: "🥶 ERA DO GELO 🥶", imagem: "https://files.catbox.moe/6pn7aq.jpg", texto: "Apresentações são opcionais. É proibido chamar no PV, especialmente dos admins, sem autorização. Não é permitido nenhum tipo de pornografia explícita, discriminação fora da zoeira, desrespeito com admins, links ou divulgações. Vídeos e fotos devem ser enviados em visualização única. Flood de figurinhas e participação de menores de 14 anos são proibidos. Evite poluição com textos. Fora essas regras, o restante é liberado. Problemas devem ser reportados à administração. O grupo fecha de madrugada (01:00 às 06:00) e reabre pela manhã. Pedidos devem ser autorizados por um admin.", link: "https://chat.whatsapp.com/HPEXWJYXFWz3cK852iXavf" },
+      historia4: { titulo: "Título da História 4", imagem: "https://via.placeholder.com/200", texto: "Texto da história 4 aqui...", link: "#" },
+      historia5: { titulo: "Título da História 5", imagem: "https://via.placeholder.com/200", texto: "Texto da história 5 aqui...", link: "#" },
+      historia6: { titulo: "Título da História 6", imagem: "https://via.placeholder.com/200", texto: "Texto da história 6 aqui...", link: "#" },
+      historia7: { titulo: "Título da História 7", imagem: "https://via.placeholder.com/200", texto: "Texto da história 7 aqui...", link: "#" },
+      historia8: { titulo: "Título da História 8", imagem: "https://via.placeholder.com/200", texto: "Texto da história 8 aqui...", link: "#" },
+      historia9: { titulo: "Título da História 9", imagem: "https://via.placeholder.com/200", texto: "Texto da história 9 aqui...", link: "#" },
+      historia10: { titulo: "Título da História 10", imagem: "https://via.placeholder.com/200", texto: "Texto da história 10 aqui...", link: "#" },
+      historia11: { titulo: "Título da História 11", imagem: "https://via.placeholder.com/200", texto: "Texto da história 11 aqui...", link: "#" },
+      historia12: { titulo: "Título da História 12", imagem: "https://via.placeholder.com/200", texto: "Texto da história 12 aqui...", link: "#" },
+      historia13: { titulo: "Título da História 13", imagem: "https://via.placeholder.com/200", texto: "Texto da história 13 aqui...", link: "#" },
+      historia14: { titulo: "Título da História 14", imagem: "https://via.placeholder.com/200", texto: "Texto da história 14 aqui...", link: "#" },
+      historia15: { titulo: "Título da História 15", imagem: "https://via.placeholder.com/200", texto: "Texto da história 15 aqui...", link: "#" },
+      historia16: { titulo: "Título da História 16", imagem: "https://via.placeholder.com/200", texto: "Texto da história 16 aqui...", link: "#" },
+      historia17: { titulo: "Título da História 17", imagem: "https://via.placeholder.com/200", texto: "Texto da história 17 aqui...", link: "#" },
+      historia18: { titulo: "Título da História 18", imagem: "https://via.placeholder.com/200", texto: "Texto da história 18 aqui...", link: "#" },
+      historia19: { titulo: "Título da História 19", imagem: "https://via.placeholder.com/200", texto: "Texto da história 19 aqui...", link: "#" },
+      historia20: { titulo: "Título da História 20", imagem: "https://via.placeholder.com/200", texto: "Texto da história 20 aqui...", link: "#" },
+      historia21: { titulo: "🤖 BotCrafters ⌇", imagem: "https://files.catbox.moe/fh70vo.jpg", texto: "Espaço para desenvolvedores de bots em Node.js — ideal para testar bots, tirar dúvidas e aprender em comunidade. As regras incluem: respeito, foco no tema, testes permitidos, proibição de conteúdo ofensivo, bots indesejados e divulgações. Vantagens do grupo incluem suporte em casos de plágio, ajuda com bugs, compartilhamento de sistemas e a possibilidade de testar bots antes de comprar ou alugar. Há links úteis como APIs (Nodz, Ted) e downloads (Buttons + exemplos). Bots que já tem no grupo: GREY, KYOURY, ZAGAN, SHIZUKU, TAKIRA", link: "https://chat.whatsapp.com/Gq6ZAdvdKJO4n8WhDUAgKf" },
+    };
+
+    function mostrarHistoria(id) {
+      const historia = historias[id];
+      const gostei = JSON.parse(localStorage.getItem("gostei_" + id)) || 0;
+      const naoGostei = JSON.parse(localStorage.getItem("naogostei_" + id)) || 0;
+
+      document.getElementById("titulo").style.display = "none";
+      document.getElementById("botoes").style.display = "none";
+      document.querySelector(".voltar-btn").style.display = "inline-block";
+
+      const exibicao = document.getElementById("exibicao");
+      exibicao.style.display = "block";
+      exibicao.innerHTML = `
+        <h2>${historia.titulo}</h2>
+        <div class="imagem-audio">
+          <img src="${historia.imagem}" alt="Imagem da história">
+          <a href="${historia.link}" target="_blank" class="botao-historia">Entrar no grupo</a>
+        </div>
+        <div class="texto">${historia.texto}</div>
+        <div class="reacoes">
+          <button onclick="registrarReacao('${id}', 'gostei')">👍 Eu gostei (<span id="gostei-count">${gostei}</span>)</button>
+          <button onclick="registrarReacao('${id}', 'naogostei')">👎 Não gostei (<span id="naogostei-count">${naoGostei}</span>)</button>
+        </div>
+      `;
+      exibicao.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function voltarInicio() {
+      document.getElementById("exibicao").style.display = "none";
+      document.getElementById("titulo").style.display = "block";
+      document.getElementById("botoes").style.display = "block";
+      document.querySelector(".voltar-btn").style.display = "none";
+    }
+
+    function registrarReacao(id, tipo) {
+      const chaveVoto = "votou_" + id;
+      if (localStorage.getItem(chaveVoto)) {
+        alert("Você já votou nessa história.");
+        return;
+      }
+
+      const chave = tipo === "gostei" ? "gostei_" + id : "naogostei_" + id;
+      let atual = JSON.parse(localStorage.getItem(chave)) || 0;
+      atual++;
+      localStorage.setItem(chave, JSON.stringify(atual));
+      localStorage.setItem(chaveVoto, true);
+      document.getElementById(tipo + "-count").textContent = atual;
+    }
+    
+    
+    function digitarTitulo(elementId, texto, intervalo = 100) {
+  const el = document.getElementById(elementId);
+  let i = 0;
+  const intervaloID = setInterval(() => {
+    el.textContent += texto.charAt(i);
+    i++;
+    if (i >= texto.length) {
+      clearInterval(intervaloID);
+      el.style.borderRight = "none";
+    }
+  }, intervalo);
+}
+
+window.addEventListener("load", () => {
+  digitarTitulo("titulo-principal", "Grupos de Whatsapp", 100);
+});
+  </script>
+  
+  
+
+</body>
+</html>

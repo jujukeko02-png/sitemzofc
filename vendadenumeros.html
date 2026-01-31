@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StreamZilla</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      background: url('https://files.catbox.moe/39maye.gif') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+
+    
+    /* Overlay escuro para legibilidade */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(1, 0, 0, 0.85);
+      z-index: -1;
+    }
+
+    /* Cabeçalho com digitação + neon */
+    header {
+      font-size: 2em;
+      font-weight: bold;
+      text-align: center;
+      margin: 60px auto 20px;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 4s steps(40, end), blink-caret 0.7s step-end infinite, neon-text 3s linear infinite;
+      border-right: 3px solid #fff;
+      max-width: fit-content;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: #fff; }
+    }
+
+    @keyframes neon-text {
+      0%   { color: #ff1c1c; text-shadow: 0 0 8px #ff1c1c; }
+      25%  { color: #00ffff; text-shadow: 0 0 8px #00ffff; }
+      50%  { color: #ff00ff; text-shadow: 0 0 8px #ff00ff; }
+      75%  { color: #ffff00; text-shadow: 0 0 8px #ffff00; }
+      100% { color: #ff1c1c; text-shadow: 0 0 8px #ff1c1c; }
+    }
+
+    .section {
+      padding: 40px 20px;
+      background-color: rgba(26, 0, 0, 0.7);
+      margin: 20px;
+      border-radius: 10px;
+    }
+
+    .section h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2em;
+      color: #bf00ff;
+      text-shadow: 0 0 10px #4682b4, 0 0 20px #bf00ff;
+      animation: none;
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .card {
+      background-color: #1a0000;
+      padding: 20px;
+      border-radius: 10px;
+      width: 250px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      border: 5px solid;
+      border-image: linear-gradient(45deg, #ff1c1c, #00ffff, #ff00ff, #ffff00, #ff1c1c) 1;
+      animation: border-glow 2s infinite linear;
+    }
+
+    @keyframes border-glow {
+      0% {
+        border-image: linear-gradient(45deg, #ff1c1c, #00ffff, #ff00ff, #ffff00, #ff1c1c) 1;
+      }
+      50% {
+        border-image: linear-gradient(135deg, #00ffff, #ff00ff, #ffff00, #ff1c1c, #00ffff) 1;
+      }
+      100% {
+        border-image: linear-gradient(45deg, #ff1c1c, #00ffff, #ff00ff, #ffff00, #ff1c1c) 1;
+      }
+    }
+
+    .card h3 {
+      font-size: 1.3em;
+      margin-bottom: 15px;
+      color: #ff1c1c;
+      text-shadow: 0 0 10px #ff1c1c, 0 0 20px #ff1c1c;
+    }
+
+    .card p {
+      font-size: 0.95em;
+      margin-bottom: 20px;
+      color: #ccc;
+    }
+
+    .btn {
+      background-color: transparent;
+      border: 2px solid #ff1c1c;
+      color: #ff1c1c;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      display: inline-block;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 5px #ff1c1c;
+      box-shadow: 0 0 10px #ff1c1c;
+    }
+
+    .btn:hover {
+      background-color: #ff1c1c;
+      color: #0d0000;
+      box-shadow: 0 0 15px #ff1c1c, 0 0 30px #ff1c1c;
+    }
+
+    /* BOTÃO FIXO BONITO - NOVA VERSÃO */
+    .voltar-fixado {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.7);
+      border: 2px solid #ff00ff;
+      color: #ff00ff;
+      padding: 12px 25px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1em;
+      box-shadow: 0 0 15px #ff00ff;
+      text-shadow: 0 0 8px #ff00ff;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 15px #ff00ff;
+      }
+      50% {
+        box-shadow: 0 0 25px #ff00ff, 0 0 35px #ff00ff;
+      }
+      100% {
+        box-shadow: 0 0 15px #ff00ff;
+      }
+    }
+
+    .voltar-fixado:hover {
+      background-color: #ff00ff;
+      color: #000;
+      box-shadow: 0 0 25px #ff00ff, 0 0 40px #ff00ff;
+      animation: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #aaa;
+      margin-bottom: 70px; /* Espaço para o botão fixo */
+    }
+  </style>
+</head>
+<body>
+
+  <header id="topo">Dι᥎ᥱr᥉᥆᥉ Nᥙ́꧑ᥱr᥆᥉ A Vᥱᥒdᥲ</header>
+
+  <section class="section">
+    <h2>Esᴄᴏʟʜᴀ ᴏ DDD ᴇ Pᴀɪ́s ᴅᴇ sᴜᴀ ᴘʀᴇғᴇʀᴇ̂ɴᴄɪᴀ, sᴇᴍ ғᴀʟᴀʀ ᴄᴏᴍ ᴏs ᴏ́ᴛɪᴍᴏs ᴘʀᴇᴄ̧ᴏs</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>
+          🇧🇷
+        +5594......</h3>
+        <p>Entrega rápida e segura por DarkkMzGty </p>
+        <a class="btn" href="https://wa.link/760afa">Comprar</a>
+      </div>
+<div id="sidebar-container"></div>
+      <div class="card">
+        <h3>
+        🇿🇦
+        +2784</h3>
+        <p>Número já esquentado e funcionando em bots, grupos ativos, o que for. 
+        Por DarkkMzGty</p>
+        <a class="btn" href="https://wa.link/0cswpo">Comprar</a>
+      </div>
+
+      <div class="card">
+        <h3>xx xxxxxxxxx</h3>
+        <p>Entrega rápida e segura por...</p>
+        <a class="btn" href="#">Comprar</a>
+      </div>
+
+      <div class="card">
+        <h3>xx xxxxxxxxx</h3>
+        <p>Entrega rápida e segura por...</p>
+        <a class="btn" href="#">Comprar</a>
+      </div>
+
+      <div class="card">
+        <h3>xx xxxxxxxxxx</h3>
+        <p>Entrega rápida e segura por...</p>
+        <a class="btn" href="#">comprar</a>
+      </div>
+
+      <div class="card">
+        <h3>xx xxxxxxxxxxx</h3>
+        <p>Entrega rápida e segura por...</p>
+        <a class="btn" href="#">comprar</a>
+      </div>
+    </div>
+  </section>
+  
+  
+
+  <footer>
+    © 2025 Hexaverse. Todos os direitos reservados.
+  </footer>
+
+  <!-- BOTÃO FIXO BONITO - NOVA VERSÃO -->
+  <a href="indexx.html" class="voltar-fixado"> Voltar a Hexaverse</a>
+  
+
+
+</body>
+</html>

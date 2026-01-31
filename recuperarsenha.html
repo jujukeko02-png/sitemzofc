@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Recuperar Senha - Host Supreme</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #0f0f0f, #1e1e1e);
+      display: flex; justify-content: center; align-items: center;
+      height: 100vh; overflow: hidden;
+      color: white;
+    }
+
+    .container {
+      background: #121212;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(0, 255, 204, 0.2);
+      width: 100%; max-width: 400px;
+      animation: fadeIn 0.8s ease-in-out;
+      text-align: center;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(30px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    h2 {
+      color: #00ffcc;
+      margin-bottom: 25px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      background: #1f1f1f;
+      color: white;
+      box-shadow: inset 0 0 5px rgba(0, 255, 204, 0.1);
+      font-size: 1rem;
+      margin-bottom: 20px;
+      transition: box-shadow 0.3s;
+    }
+
+    input:focus {
+      outline: none;
+      box-shadow: 0 0 10px #00ffcc;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #00ffcc;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button:hover {
+      background: #00e6b8;
+      box-shadow: 0 0 15px #00ffcc55;
+    }
+
+    #message {
+      margin-top: 15px;
+      font-weight: 600;
+      min-height: 24px;
+      color: #00ffcc;
+    }
+
+    a {
+      color: #00ffcc;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .back-link {
+      margin-top: 20px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Recuperar Senha</h2>
+    <input type="email" id="email" placeholder="Digite seu e-mail" required />
+    <button onclick="resetPassword()">Enviar link de recuperação</button>
+    <p id="message"></p>
+    <a href="index.html" class="back-link">Voltar para o login</a>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.5.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.5.2/firebase-auth-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAr6sJhI7c90FnbGU1BVT7guZcBf8mk2XU",
+      authDomain: "alianceztx-c33d3.firebaseapp.com",
+      projectId: "alianceztx-c33d3",
+      storageBucket: "alianceztx-c33d3.firebasestorage.app",
+      messagingSenderId: "488999147814",
+      appId: "1:488999147814:web:a75f4234d12bc1cd3409e7",
+      measurementId: "G-KF7RTNZYEF"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    function resetPassword() {
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message');
+
+      if (!email) {
+        message.style.color = 'red';
+        message.innerText = 'Por favor, insira um e-mail válido.';
+        return;
+      }
+
+      auth.sendPasswordResetEmail(email)
+        .then(() => {
+          message.style.color = '#00ffcc';
+          message.innerText = '✅ Link de recuperação enviado! Verifique seu e-mail.';
+        })
+        .catch(error => {
+          message.style.color = 'red';
+          if (error.code === 'auth/user-not-found') {
+            message.innerText = '❌ Usuário não encontrado. Verifique o e-mail.';
+          } else if (error.code === 'auth/invalid-email') {
+            message.innerText = '❌ E-mail inválido.';
+          } else {
+            message.innerText = 'Erro: ' + error.message;
+          }
+        });
+    }
+  </script>
+</body>
+</html>
